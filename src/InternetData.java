@@ -1,4 +1,4 @@
-import org.omg.CORBA.TIMEOUT;
+//etimport org.omg.CORBA.TIMEOUT;
 
 import java.net.*;
 import java.io.*;
@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class InternetData {
 
         private InetAddress inet = null;
-        private TIMEOUT appTimeOut;
+        //private TIMEOUT appTimeOut;
         private int timeout;
         private String[] ipsplits;
         private String ipaddress;
@@ -33,7 +33,7 @@ public class InternetData {
         /**
          * This method provides all of the information regarding what information is being output such as:
          * <ul>
-         *     <li>The Host Name</li>
+         *     <li>The Host Name</li>   
          *     <li>The Host Address</li>
          *     <li>The Canonical Host Name</li>
          *     <li>Whether it is reachable</li>
@@ -57,8 +57,10 @@ public class InternetData {
                 if (inet instanceof Inet4Address){
                     System.out.println("This is an IPv4 address");
             }
-
-                System.out.println("The host is reachable:" + isReachable(500));
+                /*if (multipleParameters == true){
+                    splitIP();
+                }*/
+                System.out.println("The host is reachable: " + isReachable());
                 splitIP();
             }
 
@@ -67,21 +69,28 @@ public class InternetData {
          * @param timeout It is the time in miliseconds before the application throws a runtime error and quits. It is used to make sure it doesn't stay open forever
          * @return normally false
          */
-            private boolean isReachable(int timeout){
-                return false;
-
+            private boolean isReachable(){
+                try{
+               return inet.isReachable(500);
+                }
+                catch(IOException e){
+                    e.printStackTrace();
+                }
+                return true;
             }
-/*
-            private String whichIPV(){
-                if (inet instanceof Inet6Address)
-            }
-*/
 
         public static void main( String[] args ) {
             InternetData lookup = new InternetData();
+            if (args.length > 1){
+                System.out.println("Multiple arguments");
+            }
+            else{
+                System.out.println("Single argument");
+            }
             for (int i = 0; i < args.length; i++) {
                 lookup.resolve(args[i]);
             }// The first command line argument is args[0].
+            
         }
     }
 
