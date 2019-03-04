@@ -2,7 +2,7 @@
 
 import java.net.*;
 import java.io.*;
-import java.util.Arrays;
+import java.util.*;
 
 
 /**
@@ -13,6 +13,7 @@ public class InternetData {
 
         private InetAddress inet = null;
         //private TIMEOUT appTimeOut;
+        private static ArrayList<InetAddress> addresses = new ArrayList<InetAddress>();
         private int timeout;
         private String[] ipsplits;
         private String ipaddress;
@@ -43,8 +44,20 @@ public class InternetData {
          */
 
         private void splitIP(){
+            //ArrayList<String> inputs = new ArrayList<String>();
+            
             ipaddress = inet.getHostAddress();
-            System.out.println(Arrays.toString(ipaddress.split("\\.")));
+            String[] printSplit = ipaddress.split("\\.");
+            //String printSplit = Arrays.toString(ipaddress.split("\\."));
+            //System.out.println(printSplit[0]);
+            for(int i = 0; i < 4; i++){
+                 System.out.println(printSplit[i]);
+            }
+           
+            //System.out.println(printSplit.length());
+           //inputs.add(printSplit);
+           //System.out.println(inputs.get(0));
+            //firstInput.add
         }
         private void getHostInfo() {
                 System.out.println("***********************************************" + inet.getHostName() + "***********************************************");
@@ -61,7 +74,7 @@ public class InternetData {
                     splitIP();
                 }*/
                 System.out.println("The host is reachable: " + isReachable());
-                splitIP();
+                //splitIP();
             }
 
         /**
@@ -81,15 +94,34 @@ public class InternetData {
 
         public static void main( String[] args ) {
             InternetData lookup = new InternetData();
+            
             if (args.length > 1){
                 System.out.println("Multiple arguments");
+                
+
+
+            
             }
+            else if(args.length == 0){
+                System.out.println("Please rerun the program with an argument");
+            }
+
             else{
                 System.out.println("Single argument");
             }
             for (int i = 0; i < args.length; i++) {
                 lookup.resolve(args[i]);
+                try{
+                InetAddress aAddress = InetAddress.getByName(args[i]);
+                addresses.add(aAddress);
+                System.out.println("address: " + aAddress.getHostAddress());
+                }
+                catch(UnknownHostException e){
+                    System.out.println("Hostname not found");
+                }
+                //inputs.add(printSplit[i]);
             }// The first command line argument is args[0].
+              
             
         }
     }
