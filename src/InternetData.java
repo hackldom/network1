@@ -114,13 +114,26 @@ public class InternetData {
                 try{
                 InetAddress aAddress = InetAddress.getByName(args[i]);
                 addresses.add(aAddress);
+
+                String allAddresses = addresses.get(i).getHostAddress();
+                String[] printSplit = allAddresses.split("\\.");
                 System.out.println("address: " + aAddress.getHostAddress());
+
+                for(int x = 0; x < 4; x++) {
+                    if(Integer.parseInt(printSplit[i]) >= Integer.parseInt(printSplit [i+1])){
+                        System.out.println(printSplit[x]);
+                    }
+
+                }
+               // System.out.println(aAddress);
                 }
                 catch(UnknownHostException e){
                     System.out.println("Hostname not found");
                 }
+
                 //inputs.add(printSplit[i]);
-            }// The first command line argument is args[0].
+            }
+
               
             
         }
