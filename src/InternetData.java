@@ -97,9 +97,6 @@ public class InternetData {
             
             if (args.length > 1){
                 System.out.println("Multiple arguments");
-                
-
-
             
             }
             else if(args.length == 0){
@@ -119,14 +116,24 @@ public class InternetData {
                 String[] printSplit = allAddresses.split("\\.");
                 System.out.println("address: " + aAddress.getHostAddress());
 
-                for(int x = 0; x < 4; x++) {
-                    if(Integer.parseInt(printSplit[i]) >= Integer.parseInt(printSplit [i+1])){
-                        System.out.println(printSplit[x]);
-                    }
+                //for(int x = 0; x < 4; x++) {
+                    /*if(Integer.parseInt(printSplit[i]) >= Integer.parseInt(printSplit [i+1])){
+                        System.out.println(printSplit[x]);*/
 
+                if(Integer.parseInt(printSplit[i]) == Integer.parseInt(printSplit[i + 1])){
+                    printSplit[i] = printSplit[i].replace('2', '*');
+                    System.out.println(printSplit[i]);
                 }
-               // System.out.println(aAddress);
+                    System.out.println(printSplit[0]);
+                    System.out.println(printSplit[1]);
+                    System.out.println(printSplit[2]);
+                    System.out.println(printSplit[3]);
+
+
+                    
                 }
+                //System.out.println(aAddress);
+                
                 catch(UnknownHostException e){
                     System.out.println("Hostname not found");
                 }
